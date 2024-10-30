@@ -12,9 +12,9 @@ Currently, this application can simulate sending SMS only (we can't login in the
 
 ### Preparation
 
-The build is based on Docker, so you should have it on your local machine - https://docs.docker.com/compose/install/
+The build is based on Docker, so you should [install](https://docs.docker.com/compose/install/) it on your local machine
 
-If you use Windows, it's better to (install WSL)[https://documentation.ubuntu.com/wsl/en/latest/guides/install-ubuntu-wsl2/]
+If you use Windows, it's better to [install WSL](https://documentation.ubuntu.com/wsl/en/latest/guides/install-ubuntu-wsl2/)
 
 Also, we need [Postman Desktop](https://www.postman.com/downloads/) for testing API endpoint
 
