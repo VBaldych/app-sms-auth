@@ -63,10 +63,10 @@ As a response, you can see SMS auth code or error
 ## How we can improve it
 
 For better preventing spam we can use following packages:
-`https://github.com/misd-service-development/phone-number-bundle`.
-`https://github.com/google/recaptcha`.
+- [https://github.com/misd-service-development/phone-number-bundle](https://github.com/misd-service-development/phone-number-bundle)
+- [https://github.com/google/recaptcha](https://github.com/google/recaptcha)
 
-For getting information about user device, we can use $_SERVER['HTTP_USER_AGENT']
+For getting more information about user device, we can use `$_SERVER['HTTP_USER_AGENT']` PHP variable or package [https://github.com/acsiomatic/device-detector-bundle](https://github.com/acsiomatic/device-detector-bundle)
 
 For historical analysis, we can analyze past SMS requests to detect patterns of abuse, such as multiple
 requests in a short time frame.
