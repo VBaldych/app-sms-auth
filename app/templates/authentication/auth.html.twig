@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <form action="{{ path('app_auth_sms_send') }}" method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="username">Phone number</label>
+        <input type="text" value="{{ last_username }}" name="phone" id="phone" class="form-control" autocomplete="phone" required autofocus>
+
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
+        <button class="btn btn-lg btn-primary" type="submit">Send SMS</button>
+    </form>
+
+    {# Place for answer output #}
+    <div id="response-message"></div>
+{% endblock %}
+
+{# This is a script for sending form data on API endpoint. #}
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const phone = e.target.phone.value;
+                try {
+                    const response = await fetch('/api/auth/send-sms', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({phone})
+                    });
+
+                    const result = await response.json();
+                    const responseMessage = document.getElementById('response-message');
+
+                    responseMessage.innerText = JSON.stringify(result);
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('response-message').innerText = 'Unexpected error: ' + error.message;
+                }
+            });
+        });
+    </script>
+{% endblock %}
