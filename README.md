@@ -41,7 +41,7 @@ make start
 
 ### Open application
 Now we can go to application auth page [http://127.0.0.1:8080/auth](http://127.0.0.1:8080/auth).
-For debugging purposes, I outputted JSON in form template
+For debugging purposes, I outputted JSON responses in form template
 Enjoy!
 
 ### Test API
@@ -49,8 +49,9 @@ Actually, auth form uses API endpoint for processing user, so no need to test AP
 But, if you want to test API endpoint manually, let's make a POST requests in Postman
 
 - **Validate phone number and send authorization Code**  
-  `http://127.0.0.1:8080/api/auth/send-sms`  
-  Request Body (JSON):
+  In Postman, put the URL `http://127.0.0.1:8080/api/auth/send-sms`
+
+  Put Request Body (JSON):
   ```json
   {
     "phone": "+380500000000"
@@ -73,10 +74,10 @@ requests in a short time frame.
 Also, we can use Symfony Messenger for sending SMS asynchronous. Currently, I decided to keep it simple
 
 ## Time spent
-For this task I spent __ hours. It's a complex of:
+For this task I spent 16 hours. It's a complex of:
 - Task analysis
 - Planning architecture
-- Configure local envionment
+- Configure local environment
 - Specific investigations
 - Implementation
 - Testing
