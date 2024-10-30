@@ -46,17 +46,14 @@ Enjoy!
 
 ### Test API
 Actually, auth form uses API endpoint for processing user, so no need to test API endpoints additionally :)
-But, if you want to test API endpoint manually, let's make a POST requests in Postman
-
-- **Validate phone number and send authorization Code**  
-  In Postman, put the URL `http://127.0.0.1:8080/api/auth/send-sms`
-
-  Put Request Body (JSON):
-  ```json
-  {
-    "phone": "+380500000000"
-  }
-  ```
+But, if you want to test API endpoint manually, let's make a POST requests in Postman:
+1. Put the URL `http://127.0.0.1:8080/api/auth/send-sms`
+2. Put Request Body (JSON):
+```json
+{
+  "phone": "+380500000000"
+}
+```
   
 As a response, you can see SMS auth code or error
 
