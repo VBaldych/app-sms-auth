@@ -66,7 +66,7 @@ make php-cli
 vendor/bin/rector process --dry-run
 ```
 
-## How we can improve it
+## How we can improve app implementation
 
 For better preventing spam we can use following packages:
 - [https://github.com/misd-service-development/phone-number-bundle](https://github.com/misd-service-development/phone-number-bundle)
