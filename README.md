@@ -73,7 +73,7 @@ For better preventing spam we can use following packages:
 - [https://github.com/misd-service-development/phone-number-bundle](https://github.com/misd-service-development/phone-number-bundle)
 - [https://github.com/google/recaptcha](https://github.com/google/recaptcha)
 
-For better rate limiting we can check IP & route name together with phnoe number
+For better rate limiting we can check IP & route name together with phone number
 
 For getting more information about user device, we can use `$_SERVER['HTTP_USER_AGENT']` PHP variable or package [https://github.com/acsiomatic/device-detector-bundle](https://github.com/acsiomatic/device-detector-bundle)
 
