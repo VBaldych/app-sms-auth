@@ -59,6 +59,7 @@ As a response, you can see SMS auth code or error
 
 ## Code analysis
 You can take a look I use greate tool Rector for code analysis. It helps to keep your code modern & fancy
+
 For analyzing code with Rector, run it inside PHP container
 
 ```bash
