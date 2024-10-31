@@ -14,13 +14,13 @@ use Symfony\Component\RateLimiter\RateLimiterFactory;
 class RateLimitListener
 {
     public function __construct(
-        private RateLimiterFactory $rateLimiterFactory
+        private readonly RateLimiterFactory $rateLimiterFactory
     ) { }
 
     /**
      * Limit the number of requests from one IP to a single route.
      */
-    public function onKernelController(ControllerEvent $event)
+    public function onKernelController(ControllerEvent $event): void
     {
         $request = $event->getRequest();
         $phoneNumber = $request->request->get('phone');
@@ -31,11 +31,9 @@ class RateLimitListener
             $phoneLimiter = $this->rateLimiterFactory->create($routeName . '_' . $phoneNumber);
 
             if (!$ipLimiter->consume()->isAccepted() || !$phoneLimiter->consume()->isAccepted()) {
-                $event->setController(function () {
-                    return new JsonResponse([
-                        'error' => 'You can send SMS once per 3 minutes.'
-                    ], Response::HTTP_TOO_MANY_REQUESTS);
-                });
+                $event->setController(fn(): JsonResponse => new JsonResponse([
+                    'error' => 'You can send SMS once per 3 minutes.'
+                ], Response::HTTP_TOO_MANY_REQUESTS));
             }
         }
     }

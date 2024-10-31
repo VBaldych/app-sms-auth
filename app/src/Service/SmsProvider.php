@@ -11,12 +11,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class SmsProvider
 {
     private const REQUESTS_LIMIT = 3;
+    
     // The code are available for 3 minutes.
     private const CODE_TIMELIFE = 3;
+    
     // The code cache are available for 3 minutes.
     public const CACHE_TIMELIFE = 60 * self::CODE_TIMELIFE;
+    
     // Block SMS request for 6 hours.
     public const BREAK_TIME = 6 * 60 * 60;
+    
     public const CACHE_PREFIX = 'sms_code:';
 
     public function __construct(

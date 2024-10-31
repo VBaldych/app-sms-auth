@@ -33,9 +33,10 @@ class SmsRequest
         $request = $this->requestStack->getCurrentRequest();
 
         // Check if request format is not valid
-        if (!in_array($request->getContentTypeFormat(), ['json'])) {
+        if ($request->getContentTypeFormat() != 'json') {
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Invalid request format: expecting 'application/json' in 'Content-Type'");
         }
+        
         $reflection = new \ReflectionClass($this);
 
         foreach ($request->toArray() as $property => $value) {
@@ -55,7 +56,6 @@ class SmsRequest
 
         $errors = [];
 
-        /** @var ConstraintViolation */
         foreach ($violations as $violation) {
             $errors[] = [
                 'property' => $violation->getPropertyPath(),

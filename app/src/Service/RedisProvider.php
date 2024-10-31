@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RedisProvider
 {
-    private Client $client;
+    private readonly Client $client;
 
     public function __construct(string $redisUrl)
     {
@@ -19,7 +19,7 @@ class RedisProvider
 
     public function set(string $key, mixed $value, int $lifetime = 0): void
     {
-        $this->tryCallback(function () use ($key, $value, $lifetime) {
+        $this->tryCallback(function () use ($key, $value, $lifetime): void {
             $this->client->set($key, $value);
             if ($lifetime > 0) {
                 $this->client->expire($key, $lifetime);
@@ -29,18 +29,16 @@ class RedisProvider
 
     public function get(string $key): ?array
     {
-        $cacheData = $this->tryCallback(function () use ($key) {
-            return $this->client->get($key);
-        });
+        $cacheData = $this->tryCallback(fn() => $this->client->get($key));
 
-        return (!$cacheData)
-            ? null
-            : json_decode($cacheData, true, 512, JSON_THROW_ON_ERROR);
+        return ($cacheData)
+            ? json_decode((string) $cacheData, true, 512, JSON_THROW_ON_ERROR)
+            : null;
     }
 
     public function delete(string $key): void
     {
-        $this->tryCallback(function () use ($key) {
+        $this->tryCallback(function () use ($key): void {
             $this->client->del($key);
         });
     }
@@ -49,8 +47,8 @@ class RedisProvider
     {
         try {
             return $callback();
-        } catch (\Exception $e) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        } catch (\Exception $exception) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, $exception->getMessage());
         }
     }
 }

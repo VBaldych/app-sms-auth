@@ -27,14 +27,14 @@ class UserRepository extends ServiceEntityRepository
     {
         try {
             $user = $this->findOneBy(['phone' => $phoneNumber]);
-            if (!$user) {
+            if ($user === null) {
                 $user = new User();
                 $user->setPhone($phoneNumber);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
             }
-        } catch (\Exception $e) {
-            throw new HttpException(Response::HTTP_CONFLICT, $e->getMessage());
+        } catch (\Exception $exception) {
+            throw new HttpException(Response::HTTP_CONFLICT, $exception->getMessage());
         }
 
         return $user;

@@ -46,13 +46,17 @@ class AuthController extends AbstractController
             json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR)
         );
 
-        return $data ? $this->json([
-            'status' => 'Success',
-            'code' => Response::HTTP_OK,
-            'data' => $data,
-        ]) : $this->json([
-            'status' => 'No output data',
-            'code' => Response::HTTP_UNPROCESSABLE_ENTITY
-        ]);
+        return $data !== [] ? $this->json(
+            [
+                'status' => 'Success',
+                'code' => Response::HTTP_OK,
+                'data' => $data,
+            ]
+        ) : $this->json(
+            [
+                'status' => 'No output data',
+                'code' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ]
+        );
     }
 }
