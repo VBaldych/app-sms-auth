@@ -57,11 +57,22 @@ But, if you want to test API endpoint manually, let's make a POST requests in Po
   
 As a response, you can see SMS auth code or error
 
+## Code analysis
+You can take a look I use greate tool Rector for code analysis. It helps to keep your code modern & fancy
+For analyzing code with Rector, run it inside PHP container
+
+```bash
+make php-cli
+vendor/bin/rector process --dry-run
+```
+
 ## How we can improve it
 
 For better preventing spam we can use following packages:
 - [https://github.com/misd-service-development/phone-number-bundle](https://github.com/misd-service-development/phone-number-bundle)
 - [https://github.com/google/recaptcha](https://github.com/google/recaptcha)
+
+For better rate limiting we can check IP & route name together with phnoe number
 
 For getting more information about user device, we can use `$_SERVER['HTTP_USER_AGENT']` PHP variable or package [https://github.com/acsiomatic/device-detector-bundle](https://github.com/acsiomatic/device-detector-bundle)
 
@@ -71,11 +82,12 @@ requests in a short time frame.
 Also, we can use Symfony Messenger for sending SMS asynchronous. Currently, I decided to keep it simple
 
 ## Time spent
-For this task I spent 16 hours. It's a complex of:
+For this task I spent 17 hours. It's a complex of:
 - Task analysis
 - Planning architecture
 - Configure local environment
 - Specific investigations
 - Implementation
 - Testing
+- Code analysis
 - Writing documentation

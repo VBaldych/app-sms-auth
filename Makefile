@@ -1,4 +1,4 @@
-.PHONY: init start down php composer
+.PHONY: init start down php-cli composer
 
 # Docker Compose Commands
 DC_CMD = docker-compose
@@ -12,7 +12,7 @@ start:
 	@$(DC_CMD) up -d
 down:
 	@$(DC_CMD) down
-php:
+php-cli:
 	@$(DC_CMD) exec php bash $(filter-out $@,$(MAKECMDGOALS))
 
 # Composer Command with Arguments
